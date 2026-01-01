@@ -1,0 +1,89 @@
+/*1. */
+DELIMITER /
+CREATE TRIGGER int_is_not_student
+AFTER INSERT ON instructor
+FOR EACH ROW
+BEGIN
+    IF new.id IN (SELECT id FROM student) THEN
+    DELETE FROM instructor WHERE instructor.id = new.id;
+    END IF;
+END;/
+
+CREATE TRIGGER stu_is_not_ins
+AFTER INSERT ON student
+FOR EACH ROW
+BEGIN
+    IF new.id IN (SELECT id FROM instructor) THEN
+    DELETE FROM student WHERE student.id = new.id;
+    END  IF;
+END;/
+
+DELIMITER ;
+
+/*2. */
+DELIMITER /
+CREATE TRIGGER student_delete
+AFTER DELETE ON student
+FOR EACH ROW
+BEGIN
+    DELETE FROM borrow WHERE borrow.id = old.id;
+    DELETE FROM contact WHERE contact.id = old.id;
+END;/
+
+CREATE TRIGGER instructor_delete
+AFTER DELETE ON instructor
+FOR EACH ROW
+BEGIN
+    DELETE FROM borrow WHERE borrow.id = old.id;
+    DELETE FROM contact WHERE contact.id = old.id;
+END;/
+
+CREATE TRIGGER borrow_ref
+AFTER INSERT ON borrow
+FOR EACH ROW
+BEGIN
+    IF new.id NOT IN (SELECT id FROM instructor)
+        UNION (SELECT id FROM student) THEN 
+    DELETE FROM borrow WHERE borrow.id = new.id;
+END IF;
+END;/
+
+CREATE TRIGGER contact_ref
+AFTER INSERT ON contact
+FOR EACH ROW
+BEGIN
+    IF new.id NOT IN ((SELECT id FROM instructor)
+                        UNION (SELECT id FROM student)) THEN
+        DELETE FROM contact WHERE contact.id = new.id;
+    END IF;
+END;/
+DELIMITER ;
+
+/*3. */
+DELIMITER /
+CREATE TRIGGER check_grade_insert
+AFTER INSERT ON enroll
+FOR EACH ROW
+BEGIN
+    IF(SELECT sum(course.credits) FROM enroll 
+        JOIN course USING (c_name)
+        WHERE enroll.id = new.id
+        AND enroll.grade <> 'F') >= 130 THEN
+       DELETE FROM student WHERE student.id = new.id;
+    END IF;
+END; /
+ 
+CREATE TRIGGER check_grade_update
+AFTER INSERT ON enroll
+FOR EACH ROW
+BEGIN
+    IF(SELECT sum(course.credits) FROM enroll 
+        JOIN course USING (c_name)
+        WHERE enroll.id = new.id
+        AND enroll.grade <> 'F') >= 130 THEN
+       DELETE FROM student WHERE student.id = new.id;
+    END IF;
+END; /
+
+DELIMITER ;
+

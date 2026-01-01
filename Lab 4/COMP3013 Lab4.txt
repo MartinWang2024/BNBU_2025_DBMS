@@ -1,0 +1,45 @@
+1.
+SELECT film.title
+FROM film JOIN film_actor USING(film_id) JOIN actor USING(actor_id)
+WHERE first_name='Zero' AND last_name='Cage';
+
+2.
+SELECT title
+FROM customer JOIN rental ON customer.customer_id=rental.customer_id
+JOIN inventory ON rental.inventory_id=inventory.inventory_id
+JOIN film ON inventory.film_id=film.film_id
+WHERE first_name='George' AND last_name='Linton';
+
+3.
+SELECT customer.first_name,customer.last_name
+FROM customer JOIN rental USING(customer_id) 
+JOIN inventory USING(inventory_id) 
+JOIN film_category USING(film_id) 
+JOIN category USING(category_id) 
+WHERE category.name='Action';
+
+4.
+SELECT *
+FROM film JOIN film_category USING(film_id)
+JOIN category ON(film_category.category_id=category.category_id);
+
+5.
+SELECT DISTINCT c1.first_name,c1.last_name,c2.first_name,c2.last_name
+FROM rental r1
+
+JOIN inventory i1 ON r1.inventory_id = i1.inventory_id
+JOIN film f ON i1.film_id = f.film_id
+
+JOIN inventory i2 ON f.film_id = i2.film_id
+JOIN rental r2 ON i2.inventory_id = r2.inventory_id
+
+JOIN customer c1 ON r1.customer_id = c1.customer_id
+JOIN customer c2 ON r2.customer_id = c2.customer_id
+
+WHERE c1.customer_id < c2.customer_id;
+
+6.
+SELECT customer.first_name,customer.last_name,film.title 
+FROM customer LEFT JOIN rental USING(customer_id)
+LEFT JOIN inventory USING(inventory_id)
+LEFT JOIN film USING(film_id);

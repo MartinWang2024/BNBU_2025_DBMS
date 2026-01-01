@@ -1,0 +1,10 @@
+Student ID 		Course Name 					Section Number 		Semester 		Grade
+30001			Advanced Statistics				1001 				16F				A-
+30001			Foundations of C Programming 	1002 				17S				A-
+30002			Introduction to Biology			1001				16F				F
+30003			Photography 					1001				16F				B+
+30004			Software Development Workshop	1001				17S				A-
+30005			Foundations of C Programming 	1001 				17S				C+
+30006			Photography 					1001				17F				B
+30007			Foundations of C Programming	1001 				17S				A
+30008			Introduction to Biology			1001				16F				A-

@@ -1,0 +1,101 @@
+1.
+CREATE DATABASE schemas;
+
+2.
+CREATE TABLE programs(
+    p_code	VARCHAR(40),
+    p_name	VARCHAR(40) NOT NULL,
+   	division VARCHAR(40) NOT NULL,
+   	director VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (p_code)
+    );
+
+3.
+CREATE TABLE course(
+    c_name	VARCHAR(40),
+    credits	INT NOT NULL,
+   	domain VARCHAR(40) NOT NULL,
+   	c_number VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (c_name)
+    );
+
+4.
+CREATE TABLE offer (
+    p_code VARCHAR(40) NOT NULL,
+    c_name VARCHAR(40) NOT NULL,
+    PRIMARY KEY (p_code, c_name),
+    FOREIGN KEY (p_code) REFERENCES programs(p_code),
+    FOREIGN KEY (c_name) REFERENCES course(c_name)
+);
+
+5.
+CREATE TABLE students (
+    id INT,
+    s_name VARCHAR(40) NOT NULL,
+   	yaer INT NOT NULL,
+   	gpa FLOAT(2) NOT NULL,
+   	major VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (id)
+);
+
+6.
+CREATE TABLE instructors (
+   	id	INT,
+    i_name VARCHAR(40) NOT NULL,
+    title VARCHAR(40) NOT NULL,
+    salary INT NOT NULL,
+   	program VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (id)
+);
+
+7.
+CREATE TABLE contact (
+   	id	INT,
+    phone INT,
+   	PRIMARY KEY (id,phone),
+   	FOREIGN KEY (id) REFERENCES students(id)
+);
+
+8.
+CREATE TABLE books (
+   	ISBN	INT,
+    b_title VARCHAR(40) NOT NULL,
+   	author VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (ISBN)
+);
+
+9.
+CREATE TABLE borrows (
+    id	INT,
+   	ISBN	INT,
+   	return_date DATE,
+   	borrow_date DATE NOT NULL,
+   	PRIMARY KEY (id,ISBN),
+   	FOREIGN KEY (id) REFERENCES students(id),
+   	FOREIGN KEY (ISBN) REFERENCES books(ISBN)
+);
+
+10.
+CREATE TABLE section (
+   	c_name	VARCHAR(40),
+    s_number INT,
+    sem VARCHAR(40),
+    venue VARCHAR(40) NOT NULL,
+   	time VARCHAR(40) NOT NULL,
+    instructor_id INT NOT NULL,
+   	PRIMARY KEY (c_name,s_number,sem),
+   	FOREIGN KEY (instructor_id) REFERENCES instructors(id)
+);
+
+
+11.
+CREATE TABLE enroll (
+   	id	INT,
+    c_name VARCHAR(40),
+    s_number INT,
+    sem VARCHAR(40),
+    grade VARCHAR(40) NOT NULL,
+   	PRIMARY KEY (id,c_name,s_number,sem),
+   	FOREIGN KEY (id) REFERENCES students(id),
+   	FOREIGN KEY (c_name,s_number,sem) REFERENCES section(c_name,s_number,sem)
+);

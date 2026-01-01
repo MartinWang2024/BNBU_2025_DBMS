@@ -1,0 +1,5 @@
+Program Code		Program Name				Division					Director ID
+1001				Computer Science			Science and Technology		20005
+1002				Environmental Science		Science and Technology		20002
+1003				Statistic					Science and Technology		20003
+1004				Media Arts and Design		Culture and Creativity		20007

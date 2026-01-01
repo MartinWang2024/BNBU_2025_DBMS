@@ -1,0 +1,45 @@
+1.
+SELECT AVG(rental_duration)
+FROM film;
+
+2.
+SELECT COUNT(DISTINCT film_id)
+FROM customer 
+JOIN rental USING(customer_id)
+JOIN inventory USING(inventory_id)
+WHERE first_name="Norman" AND last_name="Currier";
+
+3.
+SELECT customer_id,first_name,last_name,COUNT(DISTINCT film_id)
+FROM customer 
+JOIN rental USING(customer_id)
+JOIN inventory USING(inventory_id)
+GROUP BY customer_id;
+
+4.
+SELECT country_id,country,COUNT(DISTINCT film_id)
+FROM customer 
+JOIN rental USING(customer_id)
+JOIN inventory USING(inventory_id)
+JOIN address USING(address_id)
+JOIN city USING(city_id)
+JOIN country USING(country_id)
+GROUP BY country_id;
+
+5.
+SELECT country_id,country,COUNT(DISTINCT film_id) FROM customer JOIN rental USING(customer_id) JOIN inventory USING(inventory_id) JOIN film_category USING(film_id) JOIN category USING(category_id) JOIN address USING(address_id) JOIN city USING(city_id) JOIN country USING(country_id) WHERE category.name="Horror" GROUP BY country_id;
+
+6.
+SELECT DISTINCT country_id, country
+FROM film
+JOIN inventory USING(film_id)
+JOIN rental USING(inventory_id)
+JOIN customer AS c USING(customer_id)
+JOIN address USING(address_id)
+JOIN city USING(city_id)
+JOIN country USING(country_id)
+JOIN film_category USING(film_id)
+JOIN category USING(category_id)
+WHERE category.name="Horror"
+GROUP BY country_id, customer_id
+HAVING COUNT(DISTINCT film_id)>4;

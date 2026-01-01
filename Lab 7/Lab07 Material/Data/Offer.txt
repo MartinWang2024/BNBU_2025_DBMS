@@ -1,0 +1,6 @@
+Program Code 			Course Name
+1001					Software Development Workshop
+1001					Foundations of C Programming
+1002					Introduction to Biology
+1003					Advanced Statistics
+1004					Photography

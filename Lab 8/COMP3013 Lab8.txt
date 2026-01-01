@@ -1,0 +1,77 @@
+/*(1)*/
+SELECT title
+FROM film NATURAL JOIN (
+	SELECT film_id
+	FROM film_actor NATURAL JOIN (
+		SELECT actor_id
+		FROM actor
+		WHERE first_name='Zero' AND last_name='Cage'
+	) AS actor_subquery
+) AS film_subquery
+
+/*(2)*/
+SELECT title
+FROM film NATURAL JOIN (
+	SELECT film_id
+	FROM inventory NATURAL JOIN (
+		SELECT inventory_id
+		FROM rental NATURAL JOIN (
+			SELECT customer_id
+			FROM customer
+			WHERE first_name='George' AND last_name='Linton'
+		) AS customer_subquery
+	) AS inventory_subquery
+) AS film_subquery
+
+/*(3)*/
+SELECT CONCAT(first_name,' ',last_name) AS Customer_name
+FROM customer NATURAL JOIN (
+	SELECT customer_id
+	FROM rental NATURAL JOIN (
+		SELECT inventory_id
+		FROM inventory NATURAL JOIN (
+			SELECT film_id
+			FROM film_category NATURAL JOIN (
+				SELECT category_id
+				FROM category
+				WHERE name="Action"
+			) AS category_subquery
+		) AS film_subquery
+	) AS inventory_subquery
+) AS customer_subquery 
+
+/*(4)*/
+SELECT film_id 
+FROM film
+WHERE rental_rate=(
+	SELECT MIN(rental_rate)
+	FROM film
+	WHERE rental_rate IS NOT NULL
+)
+
+/*(5)*/
+SELECT CONCAT(first_name,' ',last_name) AS actor_name
+FROM actor NATURAL JOIN(
+	SELECT DISTINCT actor_id
+	FROM film_actor
+	WHERE film_id IN (
+		SELECT film_id
+		FROM film_actor 
+		WHERE actor_id IN (
+			SELECT actor_id
+			FROM actor
+			WHERE last_name='Bolger'
+		) 
+	) 
+) AS actor_subquery 
+WHERE last_name != 'Bolger'
+
+/*(6)*/
+SELECT COUNT(*) AS no_renting_customers
+FROM (
+	SELECT c.customer_id
+	FROM customer AS c
+	LEFT JOIN rental AS r ON c.customer_id=r.customer_id
+	GROUP BY c.customer_id
+	HAVING COUNT(r.rental_id)=0
+) AS customer_subquery

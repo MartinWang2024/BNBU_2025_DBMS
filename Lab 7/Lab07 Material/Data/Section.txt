@@ -1,0 +1,8 @@
+Course Name						Section Number 		Semester 	Venue 		Section time 		Instructor ID
+Introduction to Biology			1001				16F			C-303		Mon. 13:00-16:00	20002
+Software Development Workshop	1001				17S			D-102		Tue. 9:00-12:00		20005
+Foundations of C Programming	1001 				17S 		D-403 		Tue. 14:00-17:00 	20005
+Foundations of C Programming 	1002 				17S 		D-402 		Wed. 9:00-12:00 	20003
+Advanced Statistics				1001 				16F 		B-302 		Thu. 13:00-16:00 	20004
+Photography 					1001				16F 		E-102 		Fri. 13:00-16:00 	20006
+Photography 					1001				17F 		E-104 		Fri. 9:00-12:00 	20007	

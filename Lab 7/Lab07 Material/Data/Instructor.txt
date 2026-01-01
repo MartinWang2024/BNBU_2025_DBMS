@@ -1,0 +1,7 @@
+ID			Instructor Name		Title					Salary			Program Code
+20002		S.H. Zee			Professor				100000			1002
+20003		Eva					Professor				80000			1003
+20004		Howard				Lecturer				20000			1003
+20005		Stephen				Associate Professor		60000			1001
+20006		Paul				Lecturer				10000			1004
+20007		Kevin				Professor				80000			1004

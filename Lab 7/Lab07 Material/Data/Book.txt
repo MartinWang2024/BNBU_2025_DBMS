@@ -1,0 +1,3 @@
+ISBN				Book title							Author
+9781579550088		A New Kind of Science				Stephen Wolfram
+9780923891579		Introduction to Metamathematics		Stephen Cole Kleene

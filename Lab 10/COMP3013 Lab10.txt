@@ -1,0 +1,46 @@
+/* 1. */
+SELECT c.customer_id, c.first_name, c.last_name
+FROM customer c
+WHERE NOT EXISTS (
+    SELECT s.store_id
+    FROM store s
+    WHERE NOT EXISTS (
+        SELECT r.rental_id
+        FROM rental r
+        JOIN inventory i ON r.inventory_id = i.inventory_id
+        WHERE r.customer_id = c.customer_id
+        AND i.store_id = s.store_id
+    )
+);
+
+/* 2. */
+SELECT c.customer_id, c.first_name, c.last_name
+FROM customer c
+WHERE NOT EXISTS (
+    SELECT category.category_id
+    FROM category
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM rental r
+        JOIN inventory i ON r.inventory_id = i.inventory_id
+        JOIN film_category fc ON i.film_id = fc.film_id
+        WHERE r.customer_id = c.customer_id
+          AND fc.category_id = category.category_id
+    )
+);
+
+/* 3. */
+SELECT c.customer_id, c.first_name, c.last_name
+FROM customer c
+WHERE NOT EXISTS (
+    SELECT DISTINCT f_all.rating
+    FROM film f_all
+    WHERE NOT EXISTS (
+        SELECT r.rental_id
+        FROM rental r
+        JOIN inventory i ON r.inventory_id = i.inventory_id
+        JOIN film f ON i.film_id = f.film_id
+        WHERE r.customer_id = c.customer_id
+        AND f.rating = f_all.rating
+    )
+);

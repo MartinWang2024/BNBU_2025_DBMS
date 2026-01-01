@@ -1,0 +1,43 @@
+/* 1. */
+SELECT title, first_name
+FROM actor 
+JOIN film_actor USING (actor_id)
+JOIN film USING (film_id)
+WHERE first_name IN ('Bob', 'Zero');
+
+/* 2. */
+(SELECT f.film_id, l.name AS language
+ FROM film_actor fa
+ JOIN actor a USING(actor_id)
+ JOIN film f USING(film_id)
+ JOIN language l USING(language_id)
+ WHERE a.first_name='Tim' AND a.last_name='Hackman')
+
+INTERSECT
+
+(SELECT f.film_id, l.name AS language
+ FROM film f
+ JOIN language l USING(language_id)
+ WHERE l.name='English');
+
+/* 3. */
+SELECT DISTINCT f.film_id, l.name AS language
+FROM film_actor fa
+JOIN actor a USING (actor_id)
+JOIN film f USING (film_id)
+JOIN language l USING (language_id)
+WHERE a.first_name = 'Tim'
+  AND a.last_name = 'Hackman';
+
+/* 4. */
+(SELECT c.customer_id
+FROM customer c
+JOIN address a ON c.address_id = a.address_id
+JOIN city ci ON a.city_id = ci.city_id
+JOIN country co ON ci.country_id = co.country_id
+WHERE co.country = 'Australia')
+
+EXCEPT
+
+(SELECT customer_id
+FROM rental;)

@@ -1,0 +1,6 @@
+Course name							Credits 	Domain		Course number
+Introduction to Biology				3			ENVS		2001
+Software Development Workshop		1 			COMP		3023
+Foundations of C Programming		3 			GCIT 		1013
+Advanced Statistics					3 			STAT 		2003
+Photography 						3 			MAD 		3003

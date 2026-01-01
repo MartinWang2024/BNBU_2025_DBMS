@@ -1,0 +1,3 @@
+SELECT phone FROM address,customer WHERE first_name='Lisa' AND last_name='Anderson' AND customer.address_id=address.address_id;
+
+SELECT name FROM film,language WHERE film.language_id=language.language_id AND title='ANGELS LIFE';

@@ -1,0 +1,27 @@
+1. SELECT actor.first_name,actor.last_name,film.title 
+FROM film,film_actor,actor 
+WHERE actor.first_name='Zero' AND
+ actor.last_name='Cage' AND 
+actor.actor_id=film_actor.actor_id AND 
+film_actor.film_id=film.film_id;
+2. SELECT customer.first_name,customer.last_name,film.title 
+FROM film,customer,rental,inventory 
+WHERE customer.first_name='George' AND 
+customer.last_name='Linton' AND 
+customer.customer_id=rental.customer_id AND 
+rental.inventory_id=inventory.inventory_id AND 
+inventory.film_id=film.film_id;
+3.  SELECT customer.first_name,customer.last_name
+FROM category,film,film_category,inventory,rental,customer
+WHERE category.name='Action' AND customer.customer_id=rental.customer_id AND rental.inventory_id=inventory.inventory_id AND inventory.film_id=film_category.film_id AND film_category.category_id=category.category_id；
+4. SELECT DISTINCT customer.first_name,customer.last_name
+FROM address,city,country,customer,film,inventory,language,rental 
+WHERE customer.address_id=address.address_id AND address.city_id=city.city_id AND city.country_id=country.country_id AND country.country='China' AND customer.customer_id=rental.customer_id AND rental.inventory_id=inventory.inventory_id AND inventory.film_id=film.film_id AND film.language_id=language.language_id AND language.name='English';
+5. SELECT DISTINCT c1.first_name,c1.last_name,c2.first_name,c2.last_name FROM customer AS c1,customer AS c2,rental AS r1,rental AS r2,inventory AS i1,inventory AS i2,film AS f1,film AS f2 WHERE c1.customer_id=r1.customer_id AND r1.inventory_id=i1.inventory_id AND i1.film_id=f1.film_id AND c2.customer_id=r2.customer_id AND r2.inventory_id=i1.inventory_id AND i2.film_id=f2.film_id AND f1.film_id=f2.film_id AND c1.customer_id <> c2.customer_id;
+6. SELECT actor1.first_name,actor1.last_name
+FROM actor AS actor1,actor AS actor2,film_actor AS film_actor1,film_actor AS film_actor2 
+WHERE actor2.last_name='Bolger' AND 
+actor2.actor_id=film_actor2.actor_id AND 
+film_actor2.film_id=film_actor1.film_id AND 
+film_actor1.actor_id=actor1.actor_id AND 
+actor1.actor_id<>actor2.actor_id;

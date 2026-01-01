@@ -1,0 +1,69 @@
+/*1. */
+ALTER TABLE enroll
+ADD CONSTRAINT enroll_grade_check
+CHECK (grade IN ('A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', 'F'));
+
+/*2. */
+ALTER TABLE student
+ADD CONSTRAINT chk_student_yr 
+CHECK (yr BETWEEN 1 AND 4);
+
+/*3. */
+ALTER TABLE borrow
+ADD CONSTRAINT fk_borrow_book
+FOREIGN KEY (ISBN) REFERENCES book(ISBN)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE student
+ADD CONSTRAINT fk_student_program
+FOREIGN KEY (p_code) REFERENCES program(p_code)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE instructor
+ADD CONSTRAINT fk_instructor_program
+FOREIGN KEY (p_code) REFERENCES program(p_code)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE offer
+ADD CONSTRAINT fk_offer_program
+FOREIGN KEY (p_code) REFERENCES program(p_code)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE offer
+ADD CONSTRAINT fk_offer_course
+FOREIGN KEY (c_name) REFERENCES course(c_name)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE section
+ADD CONSTRAINT fk_section_course
+FOREIGN KEY (c_name) REFERENCES course(c_name)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE program
+ADD CONSTRAINT fk_program_director
+FOREIGN KEY (director_id) REFERENCES instructor(id)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE section
+ADD CONSTRAINT fk_section_instructor
+FOREIGN KEY (instructor_id) REFERENCES instructor(id)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE enroll
+ADD CONSTRAINT fk_enroll_student
+FOREIGN KEY (id) REFERENCES student(id)
+ON UPDATE CASCADE;
+
+
+ALTER TABLE enroll
+ADD CONSTRAINT fk_enroll_section
+FOREIGN KEY (c_name, s_number, sem) REFERENCES section(c_name, s_number, sem)
+ON UPDATE CASCADE;
